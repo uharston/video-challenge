@@ -38,6 +38,47 @@ var Playlist = {
           .querySelector('.wistia_embed')
           .classList.add('wistia_async_' + medias[0].hashed_id);
 
+          window._wq = window._wq || [];
+          _wq.push({ 
+            id: medias[0].hashed_id, 
+            options: {
+              autoPlay: true,
+              // controlsVisibleOnLoad: false,
+              // email: "lennythedog@wistia.com",
+              // endVideoBehavior: "loop",
+              // fullscreenButton: false,
+              // googleAnalytics: true,
+              // playButton: false,
+              playerColor: "#fff",
+              // seo: true,
+              // stillUrl: "https://my-awesome-website.com/my-thumbnail-url.jpg",
+              volume: 0,
+              wmode: "transparent"
+            },
+            
+            
+            onReady: function(video) {
+            console.log("I got a handle to the video!", video);
+            video.bind("play", function() {
+              var playAlertElem = document.createElement("div");
+              playAlertElem.style.padding = "20px";
+              playAlertElem.innerHTML = `You played the video! Its name is ${video.name()}.`;
+              document.body.appendChild(playAlertElem);
+              return video.unbind;
+            });
+
+      
+            video.bind("secondchange", s => {
+              // maybe add some interactive goodness to the page?
+            });
+        
+            video.bind("end", () => {
+              // cellll-e-brate good times COME ON! 🎉
+              console.log("The video ended");
+            });
+            
+          }});
+
         medias.forEach(function(media) {
           Playlist.renderMedia(media);
         });
