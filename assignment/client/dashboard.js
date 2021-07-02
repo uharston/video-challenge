@@ -39,7 +39,7 @@ var Dashboard = {
     });
   },
 
-  renderMedia: function(media) {
+  renderMedia: function(media, activeMedia) {
     var template = document.getElementById('media-template');
     var clone = template.content.cloneNode(true);
     var el = clone.children[0];
@@ -50,6 +50,13 @@ var Dashboard = {
     el.querySelector('.count').innerText = '?';
     el.setAttribute('data-hashed-id', media.hashed_id);
 
+    const mediaIsNotActiveInDb = !activeMedia.includes(media.hashed_id)
+    if (mediaIsNotActiveInDb) {
+      // set eye to inactive
+      el.querySelector(".media--hidden").style.display = ''
+      el.querySelector(".media--visible").style.display = 'none'
+    }
+  
     this.renderTags(el, ['tag-1', 'tag-2']);
 
     document.getElementById('medias').appendChild(el);
@@ -103,6 +110,24 @@ var Dashboard = {
         console.log(JSON.stringify(error, null, 2));
       })
 
+  }, 
+
+  filterActiveMedia: async function(medias) {
+    const serverUrl = 'http://localhost:1234/media/active'
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const activeMedia = await axios.get(serverUrl, config)
+      .then( res => {
+        console.log('res', res.data)
+        return res.data
+      })
+      .catch( error => {
+        console.log(JSON.stringify(error, null, 2));
+      })
+      return activeMedia
   }
 };
 
@@ -111,9 +136,11 @@ var Dashboard = {
     'DOMContentLoaded',
     function() {
       Dashboard.getMedias().then(function(response) {
-        response.data.map(function(media) {
+        response.data.map(async function(media) {
           // Server.seedMedias(media)
-          Dashboard.renderMedia(media);
+          const activeMedia = await Dashboard.filterActiveMedia()
+          // debugger
+          Dashboard.renderMedia(media, activeMedia);
         });
       });
     },
