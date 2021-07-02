@@ -28,6 +28,26 @@ export class MediaService {
     return await media.update({ active: active })
   }
 
+  async updateTotalPlays(updateMediaDto: UpdateMediaDto): Promise<Media> {
+    const { hashed_id } = updateMediaDto
+
+    const media = await this.mediaEntity.findOne({
+      where: {
+        hashed_id: hashed_id
+      }
+    })
+
+    await media.increment('totalPlays')
+    
+    await media.reload()
+
+    return media 
+  }
+
+  async findAll() {
+    return await this.mediaEntity.findAll()
+  }
+
   async findAllActiveMedia() {
     return await this.mediaEntity.findAll({
       where: {active: true}
