@@ -19,9 +19,10 @@ export class MediaController {
     return await this.mediaService.toggleVisibility(toggleVisibilityDto);
   }
 
-  @Get()
-  findAll() {
-    return this.mediaService.findAll();
+  @Get('active')
+  async findActiveMediaFilter(): Promise<string[]>  {
+    const medias: Media[] = await this.mediaService.findAllActiveMedia();
+    return medias.map( media => media.hashed_id )
   }
 
   @Get(':id')

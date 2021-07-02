@@ -28,8 +28,10 @@ export class MediaService {
     return await media.update({ active: active })
   }
 
-  findAll() {
-    return `This action returns all media`;
+  async findAllActiveMedia() {
+    return await this.mediaEntity.findAll({
+      where: {active: true}
+    })
   }
 
   findOne(id: number) {
