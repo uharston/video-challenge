@@ -14,7 +14,7 @@ export class MediaController {
     return this.mediaService.create(createMediaDto);
   }
 
-  @Post('toggle')
+  @Patch('toggle')
   async toggleVisibility(@Body() toggleVisibilityDto: ToggleVisibilityDto): Promise<Media> {
     return await this.mediaService.toggleVisibility(toggleVisibilityDto);
   }

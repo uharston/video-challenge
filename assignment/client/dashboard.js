@@ -95,7 +95,7 @@ var Dashboard = {
       hashed_id: event.target.parentNode.dataset.hashedId, 
       active: active
     }
-    await axios.post(serverUrl, body, config)
+    await axios.patch(serverUrl, body, config)
       .then( res => {
         console.log('res', res.data)
       })
