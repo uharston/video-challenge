@@ -1,5 +1,22 @@
 'use strict';
 
+var Server = { 
+  seedMedias: async function(media) {
+    const serverUrl = 'http://localhost:1234/media'
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    await axios.post(serverUrl, media, config)
+      .then( res => {
+        console.log('res', res)
+      })
+      .catch( error => {
+        console.log(JSON.stringify(error, null, 2));
+      })
+  },
+}
 var Dashboard = {
   getMedias: function() {
     var url = new URL('https://api.wistia.com/v1/medias.json');
@@ -49,6 +66,22 @@ var Dashboard = {
   addTag: function() {
     var el = document.createElement('li');
     el.querySelector('.tags').appendChild(el);
+  },
+
+  toggleEye: function(event) {
+    let isEye
+    for (let index = 0; index < event.target.children.length; index++) {
+      const svg = event.target.children[index];
+      if (svg.style.display === "none") {
+         svg.style.display = ""
+         event.target.children[0].dataset === 'eye' ? isEye = false : isEye = true 
+      } else {
+        svg.style.display = "none"
+        event.target.children[0].dataset === 'eye' ? isEye = true : isEye = false 
+      } 
+    }
+    console.log(isEye)
+    return isEye
   }
 };
 
@@ -58,6 +91,7 @@ var Dashboard = {
     function() {
       Dashboard.getMedias().then(function(response) {
         response.data.map(function(media) {
+          // Server.seedMedias(media)
           Dashboard.renderMedia(media);
         });
       });
@@ -70,6 +104,11 @@ var Dashboard = {
     function(event) {
       if (event && event.target.matches('.visibility-toggle')) {
         /* toggle visibility */
+        const isEye = Dashboard.toggleEye(event)
+
+        // toggle button slash 
+        // update db 
+          // grab hashed_id
       }
 
       if (event && event.target.matches('.tag-button')) {
