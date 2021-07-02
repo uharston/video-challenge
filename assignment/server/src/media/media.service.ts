@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Sequelize } from 'sequelize-typescript';
 import { CreateMediaDto } from './dto/create-media.dto';
+import { ToggleVisibilityDto } from './dto/toggle-visibility.dto';
 import { UpdateMediaDto } from './dto/update-media.dto';
 import { Media } from './entities/media.entity';
 
@@ -15,6 +16,16 @@ export class MediaService {
 
   create(createMediaDto: CreateMediaDto) {
     return this.mediaEntity.create(createMediaDto)
+  }
+
+  async toggleVisibility(toggleVisibilityDto: ToggleVisibilityDto): Promise<Media> {
+    const { hashed_id, active } = toggleVisibilityDto
+    const media = await this.mediaEntity.findOne({
+      where: {
+        hashed_id: hashed_id
+      }
+    })
+    return await media.update({ active: active })
   }
 
   findAll() {
