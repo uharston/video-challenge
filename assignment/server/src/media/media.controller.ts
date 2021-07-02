@@ -19,12 +19,21 @@ export class MediaController {
     return await this.mediaService.toggleVisibility(toggleVisibilityDto);
   }
 
+  @Patch('total-plays')
+  async updateTotalPlays(@Body() updateMediaDto: UpdateMediaDto): Promise<Media> {
+    return await this.mediaService.updateTotalPlays(updateMediaDto);
+  }
+
   @Get('active')
   async findActiveMediaFilter(): Promise<string[]>  {
     const medias: Media[] = await this.mediaService.findAllActiveMedia();
     return medias.map( media => media.hashed_id )
   }
 
+  @Get()
+  async findAll(): Promise<Media[]>  {
+    return await this.mediaService.findAll();
+  }
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.mediaService.findOne(+id);
