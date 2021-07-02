@@ -82,6 +82,27 @@ var Dashboard = {
     }
     console.log(isEye)
     return isEye
+  },
+
+  toggleMedia: async function(event, active) { 
+    const serverUrl = 'http://localhost:1234/media/toggle'
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const body = {
+      hashed_id: event.target.parentNode.dataset.hashedId, 
+      active: active
+    }
+    await axios.post(serverUrl, body, config)
+      .then( res => {
+        console.log('res', res.data)
+      })
+      .catch( error => {
+        console.log(JSON.stringify(error, null, 2));
+      })
+
   }
 };
 
@@ -105,7 +126,7 @@ var Dashboard = {
       if (event && event.target.matches('.visibility-toggle')) {
         /* toggle visibility */
         const isEye = Dashboard.toggleEye(event)
-
+        Dashboard.toggleMedia(event, isEye)
         // toggle button slash 
         // update db 
           // grab hashed_id
