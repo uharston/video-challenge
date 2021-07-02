@@ -16,6 +16,46 @@ var Server = {
         console.log(JSON.stringify(error, null, 2));
       })
   },
+  findAllMedia: async function() {
+    const serverUrl = 'http://localhost:1234/media'
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const serverMedia = await axios.get(serverUrl, config)
+      .then( res => {
+        console.log('res', res.data)
+        return res.data
+      })
+      .catch( error => {
+        console.log(JSON.stringify(error, null, 2));
+      })
+      return serverMedia
+  },
+
+  toggleMedia: async function(event, active) { 
+    const serverUrl = 'http://localhost:1234/media/toggle'
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const body = {
+      hashed_id: event.target.parentNode.dataset.hashedId, 
+      active: active
+    }
+    await axios.patch(serverUrl, body, config)
+      .then( res => {
+        console.log('res', res.data)
+      })
+      .catch( error => {
+        console.log(JSON.stringify(error, null, 2));
+      })
+
+  }, 
+
+
 }
 var Dashboard = {
   getMedias: function() {
@@ -39,7 +79,7 @@ var Dashboard = {
     });
   },
 
-  renderMedia: function(media, activeMedia) {
+  renderMedia: function(media, activeMedia, serverMedia) {
     var template = document.getElementById('media-template');
     var clone = template.content.cloneNode(true);
     var el = clone.children[0];
@@ -47,11 +87,10 @@ var Dashboard = {
     el.querySelector('.thumbnail').setAttribute('src', media.thumbnail.url);
     el.querySelector('.title').innerText = media.name;
     el.querySelector('.duration').innerText = Utils.formatTime(media.duration);
-    el.querySelector('.count').innerText = '?';
+    el.querySelector('.count').innerText = media.totalPlays;
     el.setAttribute('data-hashed-id', media.hashed_id);
-
-    const mediaIsNotActiveInDb = !activeMedia.includes(media.hashed_id)
-    if (mediaIsNotActiveInDb) {
+    
+    if (!media.active) {
       // set eye to inactive
       el.querySelector(".media--hidden").style.display = ''
       el.querySelector(".media--visible").style.display = 'none'
@@ -91,56 +130,23 @@ var Dashboard = {
     return isEye
   },
 
-  toggleMedia: async function(event, active) { 
-    const serverUrl = 'http://localhost:1234/media/toggle'
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-    const body = {
-      hashed_id: event.target.parentNode.dataset.hashedId, 
-      active: active
-    }
-    await axios.patch(serverUrl, body, config)
-      .then( res => {
-        console.log('res', res.data)
-      })
-      .catch( error => {
-        console.log(JSON.stringify(error, null, 2));
-      })
 
-  }, 
 
-  filterActiveMedia: async function(medias) {
-    const serverUrl = 'http://localhost:1234/media/active'
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-    const activeMedia = await axios.get(serverUrl, config)
-      .then( res => {
-        console.log('res', res.data)
-        return res.data
-      })
-      .catch( error => {
-        console.log(JSON.stringify(error, null, 2));
-      })
-      return activeMedia
-  }
+
 };
 
 (function() {
   document.addEventListener(
     'DOMContentLoaded',
-    function() {
+    async function() {
+      const serverMedias = await Server.findAllMedia()
       Dashboard.getMedias().then(function(response) {
-        response.data.map(async function(media) {
+        response.data.map(function(media) {
           // Server.seedMedias(media)
-          const activeMedia = await Dashboard.filterActiveMedia()
-          // debugger
-          Dashboard.renderMedia(media, activeMedia);
+          const serverMedia = serverMedias.find( m => m.hashed_id === media.hashed_id)
+          const combinedMediaInfo = {...media, totalPlays: serverMedia.totalPlays, active: serverMedia.active }
+      
+          Dashboard.renderMedia(combinedMediaInfo);
         });
       });
     },
@@ -153,10 +159,7 @@ var Dashboard = {
       if (event && event.target.matches('.visibility-toggle')) {
         /* toggle visibility */
         const isEye = Dashboard.toggleEye(event)
-        Dashboard.toggleMedia(event, isEye)
-        // toggle button slash 
-        // update db 
-          // grab hashed_id
+        Server.toggleMedia(event, isEye)
       }
 
       if (event && event.target.matches('.tag-button')) {
