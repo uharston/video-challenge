@@ -12,6 +12,9 @@ export class Media extends Model {
     @Column
     hashed_id: string;
 
+    @Column({allowNull: false, defaultValue: 0})
+    totalPlays: number; 
+
     @Column({allowNull: false, defaultValue: true})
     active: boolean 
 
