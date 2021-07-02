@@ -2,6 +2,8 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { MediaService } from './media.service';
 import { CreateMediaDto } from './dto/create-media.dto';
 import { UpdateMediaDto } from './dto/update-media.dto';
+import { ToggleVisibilityDto } from './dto/toggle-visibility.dto';
+import { Media } from './entities/media.entity';
 
 @Controller('media')
 export class MediaController {
@@ -10,6 +12,11 @@ export class MediaController {
   @Post()
   create(@Body() createMediaDto: CreateMediaDto) {
     return this.mediaService.create(createMediaDto);
+  }
+
+  @Post('toggle')
+  async toggleVisibility(@Body() toggleVisibilityDto: ToggleVisibilityDto): Promise<Media> {
+    return await this.mediaService.toggleVisibility(toggleVisibilityDto);
   }
 
   @Get()
