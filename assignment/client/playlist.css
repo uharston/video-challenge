@@ -17,6 +17,9 @@ header {
 .main {
   display: flex;
   padding: 0 60px;
+  position: relative; 
+  left: 0; 
+  top: 0;
 }
 
 .thumbnail {
@@ -35,4 +38,62 @@ header {
 .media-content {
   display: flex;
   align-items: center;
+}
+
+#timer, .timer {
+  position: absolute;
+  top: 50px;
+  left: 72px;
+  font-size: 4em;
+  color: white;
+}
+
+#video_end {
+  display: none;
+  position: absolute;
+  top: 4px;
+  left: 55px;
+  margin-right: 48px;
+  background-color: rgba(100, 100, 100, 0.4);
+  align-items: center;
+  
+}
+
+.end_message, #end_title {
+  font-size: 2em;
+  color: white;
+}
+
+.center { 
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+.center img, #timer {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#playlist-image {
+  width: 40%
+}
+
+.end_message {
+  margin: 0;
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#end_title {
+  margin: 0;
+  position: absolute;
+  top: 85%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

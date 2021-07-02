@@ -37,6 +37,7 @@ var Playlist = {
     el.querySelector('.thumbnail').setAttribute('src', media.thumbnail.url);
     el.querySelector('.thumbnail').setAttribute('id', 'thumbnail-' + media.hashed_id);
     el.querySelector('.title').innerText = media.name;
+    el.querySelector('.title').setAttribute('id', 'title-' + media.hashed_id);
     el.querySelector('.duration').innerText = Utils.formatTime(media.duration);
     el.querySelector('.media-content').setAttribute(
       'href',
@@ -96,7 +97,7 @@ var Playlist = {
               playerColor: "#fff",
               // seo: true,
               // stillUrl: "https://my-awesome-website.com/my-thumbnail-url.jpg",
-              volume: 1,
+              volume: 2,
               wmode: "transparent"
             },
             
@@ -126,25 +127,37 @@ var Playlist = {
 
       
             video.bind("secondchange", s => {
-              const timer = document.getElementById('timer')   
-              const thumbnail = document.getElementById('thumbnail-' + video.hashedId())  
-              const image = document.getElementById('playlist-image')
-              
-             
-              // if (s === Math.floor(video.duration())) {
+              const nextVideo = video._playlist[video._playlistIndex + 1]
+              if (nextVideo) {
+                const thumbnail = document.getElementById('thumbnail-' + nextVideo.hashedId)  
+                const nextTitle = document.getElementById('title-' + nextVideo.hashedId)
+
+                const videoEnd = document.getElementById('video_end')
+                const timer = document.getElementById('timer')   
+                const image = document.getElementById('playlist-image')
+                const endTitle = document.getElementById("end_title")
+
                 
-              //   console.log('finishing')
-              //   video.pause()
-              //   image.src = thumbnail.src
-              //   let count = 5 
-              //   let interval = setInterval(() => timer.innerText = count--, 1000)
-              //   setTimeout(() => {
-              //     image.src = ''
-              //     timer.innerText = ''
-              //     clearInterval(interval)
-              //     video.play()
-              //   }, 5000)
-              // }
+
+                if (s === Math.floor(video.duration())) {
+                  
+                  console.log('finishing')
+                  video.pause()
+                  let interval = setInterval(() => timer.innerText = count--, 1000)
+                  videoEnd.style.display = 'flex'
+                  endTitle.innerText = nextTitle.innerText
+                  image.src = thumbnail.src
+                  let count = 4
+                  setTimeout(() => {
+                    videoEnd.style.display = 'none'
+                    image.src = ''
+                    timer.innerText = 5
+                    clearInterval(interval)
+                    video.play()
+                  }, 5000)
+                }
+              }
+        
               // maybe add some interactive goodness to the page?
             });
         

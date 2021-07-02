@@ -17,9 +17,21 @@
 
       <div class="main">
         <div class="wistia_embed" style="width:640px;height:360px;"></div>
+        <div id="video_end" style="width:640px;height:360px;">
+          <div class='center'>
+            <div class="end_message">Up Next</div>
+            <img id='playlist-image' src='https://embed-ssl.wistia.com/deliveries/1a7203073d412e296bc1f63eb8a35e71fb4610a9.jpg?image_crop_resized=200x120'>
+            <div id='timer'>5</div>
+            <div id="end_title"></div>
+          </div>
+        </div>
+
         <ul id="medias" class="list--unstyled"></ul>
       </div>
+      <!-- <div id="timer"></div> -->
+      
     </div>
+
 
     <template id="media-template">
       <li class="media">
@@ -27,7 +39,9 @@
           <img class="thumbnail"/>
           <div class="description">
             <div class="title"></div>
-            <div class="duration label--sm"></div>
+            <span class="duration label--sm"></span>
+            <span class="isPlaying label--sm""></span>
+            
           </div>
         </a>
       </li>
