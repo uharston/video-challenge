@@ -23,10 +23,18 @@
   "dependencies": {
     "@nestjs/common": "^7.6.15",
     "@nestjs/core": "^7.6.15",
+    "@nestjs/mapped-types": "*",
     "@nestjs/platform-express": "^7.6.15",
+    "@nestjs/sequelize": "^0.2.0",
+    "class-transformer": "^0.4.0",
+    "class-validator": "^0.13.1",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
-    "rxjs": "^6.6.6"
+    "rxjs": "^6.6.6",
+    "sequelize": "^6.6.2",
+    "sequelize-cli": "^6.2.0",
+    "sequelize-typescript": "^2.1.0",
+    "tedious": "^11.0.7"
   },
   "devDependencies": {
     "@nestjs/cli": "^7.6.0",
