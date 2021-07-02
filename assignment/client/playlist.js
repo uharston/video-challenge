@@ -1,5 +1,25 @@
 'use strict';
 
+
+var Server = {
+  updatePlayCount: async function(hashed_id) {
+    const serverUrl = 'http://localhost:1234/media/total-plays'
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const body = { hashed_id: hashed_id }
+    const response = await axios.patch(serverUrl, body, config)
+      .then( res => {
+        console.log('res', res)
+      })
+      .catch( error => {
+        console.log(JSON.stringify(error, null, 2));
+      })
+    return response
+  },
+}
 var Playlist = {
   getMedias: function() {
     var url = new URL('https://api.wistia.com/v1/medias.json');
@@ -111,27 +131,29 @@ var Playlist = {
               const image = document.getElementById('playlist-image')
               
              
-              if (s === Math.floor(video.duration())) {
+              // if (s === Math.floor(video.duration())) {
                 
-                console.log('finishing')
-                video.pause()
-                image.src = thumbnail.src
-                let count = 5 
-                let interval = setInterval(() => timer.innerText = count--, 1000)
-                setTimeout(() => {
-                  image.src = ''
-                  timer.innerText = ''
-                  clearInterval(interval)
-                  video.play()
-                }, 5000)
-              }
+              //   console.log('finishing')
+              //   video.pause()
+              //   image.src = thumbnail.src
+              //   let count = 5 
+              //   let interval = setInterval(() => timer.innerText = count--, 1000)
+              //   setTimeout(() => {
+              //     image.src = ''
+              //     timer.innerText = ''
+              //     clearInterval(interval)
+              //     video.play()
+              //   }, 5000)
+              // }
               // maybe add some interactive goodness to the page?
             });
         
-            video.bind("end", () => {
-              const isPlayingTag = document.getElementById(video.hashedId())
+            video.bind("end", async () => {
+              const hashed_id = video.hashedId()
+              const isPlayingTag = document.getElementById(hashed_id)
               isPlayingTag.innerHTML = ""
-
+              const newCount = await Server.updatePlayCount(hashed_id)
+              console.log(newCount)
               // cellll-e-brate good times COME ON! 🎉
               console.log("The video ended");
             });
