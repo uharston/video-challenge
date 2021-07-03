@@ -86,6 +86,11 @@ Media data from the server is loaded on page initialization along with the media
       });
     },
 
+Notice the two liner: 
+
+    const serverMedia = serverMedias.find( m => m.hashed_id === media.hashed_id)
+    const combinedMediaInfo = {...media, totalPlays: serverMedia.totalPlays, active: serverMedia.active }
+
 `Server.toggleMedia(event, isActive)` is used to update Media.active column to true/false. 
 
 ### Playlist 
