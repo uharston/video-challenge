@@ -10,11 +10,9 @@ Client side utilized plain HTML/CSS/Vanilla.js.
 
 Server side utilizes Nest.js, a Node.js framework, with Sequelize for an ORM connnecting to an MSSQL instance in a Docker container. You can use any SQL language. Just input the env variable at /assignment/server/src/app.module.ts. If using a different SQL language, you will have to install the relevant drivers. For more information see: (https://docs.nestjs.com/techniques/database#database)
 
-## Project Charecteristics 
+## Client Side 
 
-### Client Side 
-
-#### Code Style 
+### Code Style 
 
 Methods implemented to accomplish features are available through current and newly made Prototype objects. 
 
@@ -27,7 +25,7 @@ Here is an example of a send playing status method inside the existing Playlist 
         }
     }
 
-#### Create a Playlist
+### Create a Playlist
 
 I used the "_all" matcher from the Wistia Javascript Player API to tap into the event callbacks and utilize the appropiate player methods to create a uniform playlist experience. 
 
@@ -44,7 +42,7 @@ Referring back the events driven behavior that the Wistia Javascript Player API 
 `Playlist.addCountDownBanner(nextVideo, currentVideo, second)` retrieves thumbnail and title information from column via `hashed_id `lookup available `video._playlist` object. 
 
 
-### Server Side
+## Server Side
 
 
 
