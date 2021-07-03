@@ -41,6 +41,8 @@ Referring back the events driven behavior that the Wistia Javascript Player API 
 
 `Playlist.addCountDownBanner(nextVideo, currentVideo, second)` retrieves thumbnail and title information from column via `hashed_id `lookup available `video._playlist` object. 
 
+![Alt text](images/countdown.png "Title")
+
 
 ## Server Side
 
