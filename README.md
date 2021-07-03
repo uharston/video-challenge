@@ -12,4 +12,26 @@ Server side utilizes Nest.js, a Node.js framework, with Sequelize for an ORM con
 
 ## Project Charecteristics 
 
+### Client Side 
+
+#### Create a Playlist
+
+I used the "_all" matcher from the Wistia Javascript Player API to tap into the event callbacks and utilize the appropiate player methods to create a uniform playlist experience. 
+
+Embed links were leveraged to create a fluid playlist by setting playlistLinks=true to the first video.
+
+    document
+        .querySelector('.wistia_embed')
+        .classList.add('wistia_async_' + medias[0].hashed_id, 'playlistLinks=auto');
+
+Referring back the events driven behavior that the Wistia Javascript Player API support, I utilized the 'play', 'secondsChange', and 'end' callbacks implement real time features. You will notice the features involve sending info to be displayed on the video column from various source, or retrieving info from the video column to display on the embed area. 
+
+Playlist.sendPlayingStatusToColumn(hashed_id: string, isPlaying: boolean) is used to send is playing status to column. 
+
+Playlist.addCountDownBanner(nextVideo, currentVideo, second) retrieves thumbnail and title information from column via hashed_id lookup available video._playlist object. 
+
+
+####
+
+
 
