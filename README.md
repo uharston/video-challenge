@@ -41,7 +41,7 @@ Referring back the events driven behavior that the Wistia Javascript Player API 
 
 `Playlist.addCountDownBanner(nextVideo, currentVideo, second)` retrieves thumbnail and title information from column via `hashed_id `lookup available `video._playlist` object. 
 
-![Alt text](assignment/images/countdown.png "Title")
+![Alt text](assignment/images/countdown.png "Countdown")
 
 
 ## Server Side
@@ -94,6 +94,9 @@ Notice the two liner:
     const combinedMediaInfo = {...media, totalPlays: serverMedia.totalPlays, active: serverMedia.active }
 
 `Server.toggleMedia(event, isActive)` is used to update Media.active column to true/false. 
+
+![Alt text](assignment/images/dashboard.png "Dashboard")
+
 
 ### Playlist 
 
