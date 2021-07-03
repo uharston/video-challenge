@@ -20,13 +20,12 @@ Feature methods are available through current and newly made Prototype objects.
 
 Ex. 
 
-var Playlist = {
-
-  sendPlayingStatusToColumn: function(hashed_id, isPlaying) {
-    const tag = document.getElementById(hashed_id)
-    isPlaying ? tag.innerText = " - Playing" : isPlayingTag.innerHTML = ""
-  }, 
-}
+    var Playlist = {
+        sendPlayingStatusToColumn: function(hashed_id, isPlaying) {
+            const tag = document.getElementById(hashed_id)
+            isPlaying ? tag.innerText = " - Playing" : isPlayingTag.innerHTML = ""
+        }, 
+    }
 
 #### Create a Playlist
 
