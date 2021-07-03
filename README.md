@@ -123,6 +123,25 @@ Schema for tag feature:
 
 ![Alt text](assignment/images/ERD.jpeg "ERD")
 
+To pull up videos that are associated with a specific tag name. This is what the query would look like in sql server: 
+
+    SELECT Media.* From Tags 
+    INNER JOIN Media 
+    ON idMedia = Media.[id] 
+    WHERE Tags.[name] = 'My-tag1'
+
+The `INNER JOIN` allows various rows to be associated as one linked record. 
+
+To find the video with the most number of tags: 
+
+    SELECT TOP 1 mostTaggedMedia.[id], mostTaggedMedia.[name], mostTaggedMedia.[type], mostTaggedMedia.[hashed_id], mostTaggedMedia.[totalPlays], mostTaggedMedia.[active], COUNT(mostTaggedMedia.[id]) as 'tag_count'
+    FROM ( SELECT Media.*, Tags.[id] as 'idTag'
+    FROM Media 
+    INNER JOIN Tags 
+    ON Media.[id] = Tags.[idMedia]) mostTaggedMedia
+    GROUP BY mostTaggedMedia.[id], mostTaggedMedia.[name], mostTaggedMedia.[type], mostTaggedMedia.[hashed_id], mostTaggedMedia.[totalPlays], mostTaggedMedia.[active]
+    ORDER BY COUNT(mostTaggedMedia.[id]) DESC
+
 ## Conclusion 
 
 I have done projects with little guardrails before so I really appreciated the well organized project in light of it being in plain Javascript. It speaks well of good design thinking. I strived to follow the same design pattern by making the code self documenting. 
