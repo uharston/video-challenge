@@ -52,7 +52,7 @@ In order the create a functional client facing dashboard, it is need to have a r
 
 The schema: 
 
-![Alt text](assignment/images/ERD.png "ERD")
+![Alt text](assignment/images/ERD.jpeg "ERD")
 
 
 The model in Nest.js: 
