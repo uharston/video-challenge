@@ -114,6 +114,14 @@ A simple findAll querying the database:
         })
     }
 
+## Conclusion 
+
+I have done projects with little guardrails before so I really appreciated the well organized project in light of it being in plain Javascript. It speaks well of good design thinking. I strived to follow the same design pattern by making the code self documenting. 
+
+I was very interesting getting to work with the Wistia Javascript Player API for the first time. I had to read a bit the understand the intended functionality of the Player API as well as the Embed Links. In the end, the '_all' matcher proved to be a very useful way to create a predicatable video experience. 
+
+It is quite simple to plug in a backend of any language to start collecting basic metrics on media items. I would like to have the opportunity in the future to have a more fullsome developer experience of what the Wistia API is capable of in regards creating vorality for company brands. 
+
 
 
 
