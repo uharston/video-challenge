@@ -14,6 +14,20 @@ Server side utilizes Nest.js, a Node.js framework, with Sequelize for an ORM con
 
 ### Client Side 
 
+#### Code Style 
+
+Feature methods are available through current and newly made Prototype objects. 
+
+Ex. 
+
+var Playlist = {
+
+  sendPlayingStatusToColumn: function(hashed_id, isPlaying) {
+    const tag = document.getElementById(hashed_id)
+    isPlaying ? tag.innerText = " - Playing" : isPlayingTag.innerHTML = ""
+  }, 
+}
+
 #### Create a Playlist
 
 I used the "_all" matcher from the Wistia Javascript Player API to tap into the event callbacks and utilize the appropiate player methods to create a uniform playlist experience. 
