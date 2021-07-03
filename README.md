@@ -16,15 +16,15 @@ Server side utilizes Nest.js, a Node.js framework, with Sequelize for an ORM con
 
 #### Code Style 
 
-Feature methods are available through current and newly made Prototype objects. 
+Methods implemented to accomplish features are available through current and newly made Prototype objects. 
 
-Here is an example of a send playing status method inside the existing Playlist object. 
+Here is an example of a send playing status method inside the existing Playlist object:
 
     var Playlist = {
         sendPlayingStatusToColumn: function(hashed_id, isPlaying) {
             const tag = document.getElementById(hashed_id)
             isPlaying ? tag.innerText = " - Playing" : isPlayingTag.innerHTML = ""
-        }, 
+        }
     }
 
 #### Create a Playlist
@@ -44,7 +44,9 @@ Referring back the events driven behavior that the Wistia Javascript Player API 
 `Playlist.addCountDownBanner(nextVideo, currentVideo, second)` retrieves thumbnail and title information from column via `hashed_id `lookup available `video._playlist` object. 
 
 
-####
+### Server Side
+
+
 
 
 
