@@ -115,7 +115,7 @@ var Dashboard = {
   },
 
   toggleEye: function(event) {
-    let isEye
+    let isActive
     for (let index = 0; index < event.target.children.length; index++) {
       const svg = event.target.children[index];
       if (svg.style.display === "none") {
@@ -126,12 +126,8 @@ var Dashboard = {
         event.target.children[0].dataset === 'eye' ? isEye = true : isEye = false 
       } 
     }
-    console.log(isEye)
-    return isEye
+    return isActive
   },
-
-
-
 
 };
 
@@ -158,8 +154,8 @@ var Dashboard = {
     function(event) {
       if (event && event.target.matches('.visibility-toggle')) {
         /* toggle visibility */
-        const isEye = Dashboard.toggleEye(event)
-        Server.toggleMedia(event, isEye)
+        const isActive = Dashboard.toggleEye(event)
+        Server.toggleMedia(event, isActive)
       }
 
       if (event && event.target.matches('.tag-button')) {
