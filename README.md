@@ -18,7 +18,7 @@ Server side utilizes Nest.js, a Node.js framework, with Sequelize for an ORM con
 
 Feature methods are available through current and newly made Prototype objects. 
 
-Ex. 
+Here is an example of a send playing status method inside the existing Playlist object. 
 
     var Playlist = {
         sendPlayingStatusToColumn: function(hashed_id, isPlaying) {
