@@ -134,13 +134,13 @@ The `INNER JOIN` allows various rows to be associated as one linked record.
 
 To find the video with the most number of tags: 
 
-    SELECT TOP 1 mostTaggedMedia.[id], mostTaggedMedia.[name], mostTaggedMedia.[type], mostTaggedMedia.[hashed_id], mostTaggedMedia.[totalPlays], mostTaggedMedia.[active], COUNT(mostTaggedMedia.[id]) as 'tag_count'
+    SELECT TOP 1 mostTaggedMedias.[id], mostTaggedMedias.[name], mostTaggedMedias.[type], mostTaggedMedias.[hashed_id], mostTaggedMedias.[totalPlays], mostTaggedMedias.[active], COUNT(mostTaggedMedias.[id]) as 'tag_count'
     FROM ( SELECT Media.*, Tags.[id] as 'idTag'
     FROM Media 
     INNER JOIN Tags 
-    ON Media.[id] = Tags.[idMedia]) mostTaggedMedia
-    GROUP BY mostTaggedMedia.[id], mostTaggedMedia.[name], mostTaggedMedia.[type], mostTaggedMedia.[hashed_id], mostTaggedMedia.[totalPlays], mostTaggedMedia.[active]
-    ORDER BY COUNT(mostTaggedMedia.[id]) DESC
+    ON Media.[id] = Tags.[idMedia]) mostTaggedMedias
+    GROUP BY mostTaggedMedias.[id], mostTaggedMedias.[name], mostTaggedMedias.[type], mostTaggedMedias.[hashed_id], mostTaggedMedias.[totalPlays], mostTaggedMedias.[active]
+    ORDER BY COUNT(mostTaggedMedias.[id]) DESC
 
 ## Conclusion 
 
