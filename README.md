@@ -50,10 +50,6 @@ Referring back the events driven behavior that the Wistia Javascript Player API 
 
 In order the create a functional client facing dashboard, it is need to have a record of the historical state. I was not too sure of the solid use case of typical consumers. In this sample project, I noticed that retrieving the same videos from the Wistia API on client load. It would be safe to assume that I should also have a record of these video in my own server so that I can track my own metrics, and dictate visibility of my video. I created a simple Media model with the basic metadata need to associate client side data with my own records. Hashed_id is key here. `Server.seedMedia(medias)` is a one time method to populate the database. 
 
-The schema: 
-
-![Alt text](assignment/images/ERD.jpeg "ERD")
-
 
 The model in Nest.js: 
 
@@ -118,6 +114,14 @@ A simple findAll querying the database:
         where: { active: true }
         })
     }
+
+## Search by tag feature 
+
+`SELECT COUNT(Media.[totalPlays]) From Media WHERE [Media].[totalPlays] > 1` will return the total number of videos that have been played at least once. 
+
+Schema for tag feature:
+
+![Alt text](assignment/images/ERD.jpeg "ERD")
 
 ## Conclusion 
 
