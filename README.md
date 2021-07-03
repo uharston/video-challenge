@@ -50,6 +50,11 @@ Referring back the events driven behavior that the Wistia Javascript Player API 
 
 In order the create a functional client facing dashboard, it is need to have a record of the historical state. I was not too sure of the solid use case of typical consumers. In this sample project, I noticed that retrieving the same videos from the Wistia API on client load. It would be safe to assume that I should also have a record of these video in my own server so that I can track my own metrics, and dictate visibility of my video. I created a simple Media model with the basic metadata need to associate client side data with my own records. Hashed_id is key here. `Server.seedMedia(medias)` is a one time method to populate the database. 
 
+The schema: 
+
+![Alt text](assignment/images/ERD.png "ERD")
+
+
 The model in Nest.js: 
 
     @Table
@@ -118,7 +123,7 @@ A simple findAll querying the database:
 
 I have done projects with little guardrails before so I really appreciated the well organized project in light of it being in plain Javascript. It speaks well of good design thinking. I strived to follow the same design pattern by making the code self documenting. 
 
-I was very interesting getting to work with the Wistia Javascript Player API for the first time. I had to read a bit the understand the intended functionality of the Player API as well as the Embed Links. In the end, the '_all' matcher proved to be a very useful way to create a predicatable video experience. 
+I was very interesting getting to work with the Wistia Javascript Player API for the first time. I had to read a bit to understand the intended functionality of the Player API as well as the Embed Links. In the end, the '_all' matcher proved to be a very useful way to create a predicatable video experience. 
 
 It is quite simple to plug in a backend of any language to start collecting basic metrics on media items. I would like to have the opportunity in the future to have a more fullsome developer experience of what the Wistia API is capable of in regards creating vorality for company brands. 
 
