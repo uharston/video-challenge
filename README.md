@@ -8,7 +8,7 @@ Node version: v14.17.1
 
 Client side utilized plain HTML/CSS/Vanilla.js. 
 
-Server side utilizes Nest.js, a Node.js framework, with Sequelize for an ORM connnecting to an MSSQL instance in a Docker container. You can use any SQL language. Just input the env variable at /assignment/server/src/app.module.ts. If using a different SQL language, you will have to install the relevant drivers. For more information see: (https://docs.nestjs.com/techniques/database#database)
+Server side utilizes Nest.js, a Node.js framework, with Sequelize for an ORM connecting to an MSSQL instance in a Docker container. You can use any SQL language. Just input the env variable at /assignment/server/src/app.module.ts. If using a different SQL language, you will have to install the relevant drivers. For more information see: (https://docs.nestjs.com/techniques/database#database)
 
 ## Client Side 
 
@@ -27,7 +27,7 @@ Here is an example of a send playing status method inside the existing Playlist 
 
 ### Create a Playlist
 
-I used the "_all" matcher from the Wistia Javascript Player API to tap into the event callbacks and utilize the appropiate player methods to create a uniform playlist experience. 
+I used the "_all" matcher from the Wistia Javascript Player API to tap into the event callbacks and utilize the appropriate player methods to create a uniform playlist experience. 
 
 Embed links were leveraged to create a fluid playlist by setting playlistLinks=true to the first video.
 
@@ -35,7 +35,7 @@ Embed links were leveraged to create a fluid playlist by setting playlistLinks=t
         .querySelector('.wistia_embed')
         .classList.add('wistia_async_' + medias[0].hashed_id, 'playlistLinks=auto');
 
-Referring back the events driven behavior that the Wistia Javascript Player API support, I utilized the `'play'`, `'secondsChange'`, and `'end'` callbacks implement real time features. You will notice the features involve sending info to be displayed on the video column from various source, or retrieving info from the video column to display on the embed area. 
+Referring back to the event driven behavior that the Wistia Javascript Player API support, I utilized the `'play'`, `'secondsChange'`, and `'end'` callbacks to implement real-time features. You will notice the features involve sending info to be displayed on the video column from various sources or retrieving info from the video column to display on the embed area. 
 
 `Playlist.sendPlayingStatusToColumn(hashed_id: string, isPlaying: boolean)` is used to send is playing status to column. 
 
@@ -48,8 +48,7 @@ Referring back the events driven behavior that the Wistia Javascript Player API 
 
 ### Dashboard 
 
-In order the create a functional client facing dashboard, it is need to have a record of the historical state. I was not too sure of the solid use case of typical consumers. In this sample project, I noticed that retrieving the same videos from the Wistia API on client load. It would be safe to assume that I should also have a record of these video in my own server so that I can track my own metrics, and dictate visibility of my video. I created a simple Media model with the basic metadata need to associate client side data with my own records. Hashed_id is key here. `Server.seedMedia(medias)` is a one time method to populate the database. 
-
+In order the create a functional client-facing dashboard, it is needed to have a record of the historical state. I was not too sure of the solid use case of typical consumers. In this sample project, I noticed that retrieving the same videos from the Wistia API on the client load. It would be safe to assume that I should also have a record of these videos on my server so that I can track my metrics, and dictate the visibility of my video. I created a simple Media model with the basic metadata need to associate client-side data with my records. Hashed_id is key here. `Server.seedMedia(medias)` is a one-time method to populate the database. 
 
 The model in Nest.js: 
 
@@ -74,7 +73,7 @@ The model in Nest.js:
         tags: Tag[]
     }
 
-Media data from the server is loaded on page initialization along with the media data from the Wistia API. The historical data (totalPlays and visibility) from the server is attached to the medias retrieved from the Wistia API. 
+Media data from the server is loaded on page initialization along with the media data from the Wistia API. The historical data (totalPlays and visibility) from the server is attached to the media retrieved from the Wistia API. 
 
     async function() {
       const serverMedias = await Server.findAllMedia()
@@ -101,7 +100,7 @@ Notice the two liner:
 
 ### Playlist 
 
-Similiar to the dashboard, server data is loaded on page initialization. `Server.filterActiveMedia(response.data)` returns an array of active hashed_id confirmed by the server to filter the medias to be rendered from the Wistia API. 
+Similar to the dashboard, server data is loaded on page initialization. `Server.filterActiveMedia(response.data)` returns an array of active hashed_id confirmed by the server to filter the media to be rendered from the Wistia API. 
 
     Playlist.getMedias().then(async function(response) {
         var medias = await Server.filterActiveMedia(response.data)
@@ -144,11 +143,11 @@ To find the video with the most number of tags:
 
 ## Conclusion 
 
-I have done projects with little guardrails before so I really appreciated the well organized project in light of it being in plain Javascript. It speaks well of good design thinking. I strived to follow the same design pattern by making the code self documenting. 
+I have done projects with little guardrails before so I appreciated the well-organized project in light of it being in plain Javascript. It speaks well of good design thinking. I strived to follow the same design pattern by making the code self-documenting. 
 
-I was very interesting getting to work with the Wistia Javascript Player API for the first time. I had to read a bit to understand the intended functionality of the Player API as well as the Embed Links. In the end, the '_all' matcher proved to be a very useful way to create a predicatable video experience. 
+It was very interesting getting to work with the Wistia Javascript Player API for the first time. I had to read a bit to understand the intended functionality of the Player API as well as the Embed Links. In the end, the '_all' matcher proved to be a very useful way to create a predictable video experience. 
 
-It is quite simple to plug in a backend of any language to start collecting basic metrics on media items. I would like to have the opportunity in the future to have a more fullsome developer experience of what the Wistia API is capable of in regards creating vorality for company brands. 
+It is quite simple to plug in a backend of any language to start collecting basic metrics on media items. I would like to have the opportunity in the future to have a more fulsome developer experience of what the Wistia API is capable of in regards to creating virality for company brands. 
 
 
 
