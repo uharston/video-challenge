@@ -120,10 +120,10 @@ var Dashboard = {
       const svg = event.target.children[index];
       if (svg.style.display === "none") {
          svg.style.display = ""
-         event.target.children[0].dataset === 'eye' ? isEye = false : isEye = true 
+         event.target.children[0].dataset === 'eye' ? isActive = false : isActive = true 
       } else {
         svg.style.display = "none"
-        event.target.children[0].dataset === 'eye' ? isEye = true : isEye = false 
+        event.target.children[0].dataset === 'eye' ? isActive = true : isActive = false 
       } 
     }
     return isActive
