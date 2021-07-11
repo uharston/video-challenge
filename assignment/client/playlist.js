@@ -67,8 +67,14 @@ var Playlist = {
   }, 
 
   sendPlayingStatusToColumn: function(hashed_id, isPlaying) {
-    const tag = document.getElementById(hashed_id)
-    isPlaying ? tag.innerText = " - Playing" : isPlayingTag.innerHTML = ""
+    const allIsPlayingTags = document.getElementsByClassName('isPlaying') 
+    for (const tag of allIsPlayingTags) {
+      if (tag.id === hashed_id) {
+        tag.innerText = " - Playing"
+      } else {
+        tag.innerText = ""
+      }
+    }
   }, 
 
   addCountDownBanner: function(nextVideo, currentVideo, second) {
@@ -132,7 +138,7 @@ var Playlist = {
             console.log("I got a handle to the video!", video.name());
             video.bind("play", function() {
 
-              Playlist.sendPlayingStatusToColumn(video.hashedId(), true)
+              Playlist.sendPlayingStatusToColumn(video.hashedId())
 
               var playAlertElem = document.createElement("div");
               playAlertElem.style.padding = "20px";
@@ -153,8 +159,6 @@ var Playlist = {
             video.bind("end", async () => {
 
               const hashed_id = video.hashedId()
-
-              Playlist.sendPlayingStatusToColumn(hashed_id, false)
 
               await Server.updatePlayCount(hashed_id)
 
